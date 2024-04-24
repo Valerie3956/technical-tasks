@@ -17,8 +17,8 @@ const students = studentsList.map(student => {
 })
 
     return (
-        <div>
-        <h1>I am a list of students</h1>
+        <div className="mx-auto w-[50vw]">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl mt-8">Enrolled students</h1>
         {students}
         </div>
     )
