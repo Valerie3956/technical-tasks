@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { StudentContext } from "../context/studentContext";
 
 export default function Form(props) {
@@ -6,6 +6,17 @@ export default function Form(props) {
   const { btnText, toggle, submit, _id, name, DOB, year, major, courses, isGraduated } = props
 
   const { } = useContext(StudentContext)
+
+  useEffect(() => {
+    setFormData({
+      name: name || "",
+      DOB: DOB || "",
+      year: year || 0,
+      major: major || "",
+      courses: courses || [],
+      isGraduated: isGraduated || false
+    });
+  }, [name, DOB, year, major, courses, isGraduated]);
 
   const initData = {
     name: name || "",

@@ -21,8 +21,10 @@ const initState = {
 
 useEffect(() => {
     axios.get('/students')
-    .then(res => setStudentsList(res.data))
-    .catch(err => console.log(err.response.data.errMsg))
+    .then(res => {setStudentsList(res.data)
+      console.log(res.data)
+    })
+    .catch(err => console.log(err))
   }, [])
 
   //delete student
@@ -38,7 +40,9 @@ useEffect(() => {
 
   function createStudent(data){
 axios.post('/students', data)
-.then(res => {setStudentsList(prevData => [...prevData, res.data])})
+.then(res => {setStudentsList(prevData => [...prevData, res.data])
+  console.log(res.data)
+})
 .catch(err => console.log(err.response.data.errMsg))
   }
 
