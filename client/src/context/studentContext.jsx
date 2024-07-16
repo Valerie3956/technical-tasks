@@ -8,14 +8,15 @@ function StudentContextProvider(props){
 
 const [studentsList, setStudentsList] = useState([])
 
-const initState = {
-    name : "",
-  DOB: "",
-  year: 0,
-  major: "",
-  courses: [],
-  isGraduated: false
-}
+// const initState = {
+//     name : "",
+//   DOB: "",
+//   enrollementDate : "",
+//   year: 0,
+//   major: "",
+//   courses: [],
+//   isGraduated: false
+// }
 
 // const [student, setStudent] = useState(initState)
 
@@ -30,10 +31,12 @@ useEffect(() => {
   //delete student
 
   function deleteStudent(studentId){
-    axios.delete(`/students/${studentId}`)
-    .then(res => console.log(res.data))
+    return axios.delete(`/students/${studentId}`)
+    .then(res => {
+      setStudentsList(prevList => prevList.filter(person => person._id !== studentId))
+      console.log(res.data)
+    })
     .catch(err => console.log(err.response.data.errMsg))
-    setStudentsList(prevList => prevList.filter(person => person._id !== studentId))
   }
 
   //add student
@@ -51,7 +54,7 @@ axios.post('/students', data)
 
   function editStudent(data, _id){
 axios.put(`/students/${_id}`, data)
-.then(res => { setStudentsList(prevList => prevList.map(person => person._id !== _id? person : res.data))})
+.then(res => {setStudentsList(prevList => prevList.map(person => person._id !== _id? person : res.data))})
 .catch(err => console.log(err.response.data.errMsg))
   }
 

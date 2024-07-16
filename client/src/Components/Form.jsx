@@ -1,9 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { StudentContext } from "../context/studentContext";
+import Select from "react-select"
+import axios from "axios";
 
+//give form a more descriptive name
 export default function Form(props) {
 
-  const { btnText, toggle, submit, _id, name, DOB, year, major, courses, isGraduated } = props
+  const { btnText, toggle, submit, _id, name, DOB, enrollementDate, year, major, courses, isGraduated } = props
 
   const { } = useContext(StudentContext)
 
@@ -11,6 +14,7 @@ export default function Form(props) {
     setFormData({
       name: name || "",
       DOB: DOB || "",
+      enrollementDate : enrollementDate || "",
       year: year || 0,
       major: major || "",
       courses: courses || [],
@@ -21,6 +25,7 @@ export default function Form(props) {
   const initData = {
     name: name || "",
     DOB: DOB || "",
+    enrollementDate : enrollementDate || "",
     year: year || 0,
     major: major || "",
     courses: courses || [],
@@ -29,15 +34,39 @@ export default function Form(props) {
 
   const [formData, setFormData] = useState(initData);
 
+  const [courseOptions, setCourseOptions] = useState([])
+  
+  useEffect(() => {
+    axios.get("/courses")
+    .then(res => {
+
+      const mappedCourses = []
+
+    res.data.map(course => {
+      mappedCourses.push({
+        value: `${course._id}`,
+        label : `${course.name}`
+      })
+    })
+
+    setCourseOptions(mappedCourses)
+
+  })
+  .catch(err => console.log(err))
+}, [])
+
+
+
+
   function handleChange(event) {
     const { name, value, type, checked } = event.target
     //handle the courses select boxes
     if (name === "courses") {
-      const updatedCourses = checked ? [...formData.courses, value] : formData.courses.filter((course) => course !== value)
-      setFormData((prevData) => ({
+      const selectedCourses = value.map(option => option.value);
+      setFormData(prevData => ({
         ...prevData,
-        courses: updatedCourses
-      }))
+        courses: selectedCourses
+      }));
       //handle the other inputs
     } else {
       setFormData(prevData => ({
@@ -50,12 +79,13 @@ export default function Form(props) {
   function handleSubmit(event) {
     event.preventDefault()
     submit(formData, _id)
+    console.log(formData)
     setFormData(initData)
-    toggle()
+    _id? toggle() : console.log("no toggle func")
   }
 
   return (
-    <div className="mx-auto w-[50vw]">
+    <div className="mx-auto w-full">
       <form onSubmit={handleSubmit}>
         <label className="block text-sm font-medium leading-6 text-gray-900">
           Name:
@@ -84,15 +114,16 @@ export default function Form(props) {
         </label>
         <br />
         <label className="block text-sm font-medium leading-6 text-gray-900">
-          Year:
-          <select name="year" value={formData.year} onChange={handleChange} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-            <option value="">Select Year</option>
-            <option value="1">1st Year</option>
-            <option value="2">2nd Year</option>
-            <option value="3">3rd Year</option>
-            <option value="4">4th Year</option>
-
-          </select>
+          Enrollement Date:
+          <input
+            type="date"
+            name="enrollementDate"
+            placeholder="YYYY-MM-DD"
+            value={formData.enrollementDate}
+            onChange={handleChange}
+            required
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
         </label>
         <br />
         <label className="block text-sm font-medium leading-6 text-gray-900">
@@ -110,54 +141,17 @@ export default function Form(props) {
         <br />
 
         <label className="block text-sm font-medium leading-6 text-gray-900">
+
           Courses:
-          <div className="mt-6 space-y-6">
-
-          <div className="flex h-6 items-center">
-            <input
-              type="checkbox"
-              name="courses"
-              value="Math"
-              checked={formData.courses.includes("Math")}
-              onChange={handleChange}
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-            />
-            <label htmlFor="Math" className="font-medium text-gray-900">
-              Math
-            </label>
-</div>
-<div className="flex h-6 items-center">
-            <input
-              type="checkbox"
-              name="courses"
-              value="Science"
-              checked={formData.courses.includes("Science")}
-              onChange={handleChange}
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-            />
-
-            <label htmlFor="Science" className="font-medium text-gray-900">
-              Science
-            </label>
-</div>
-<div className="flex h-6 items-center">
-            <input
-              type="checkbox"
-              name="courses"
-              value="English"
-              checked={formData.courses.includes("English")}
-              onChange={handleChange}
-              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-            />
-
-            <label htmlFor="English" className="font-medium text-gray-900">
-              English
-            </label>
-</div>
-          </div>
+<Select options = {courseOptions}
+onChange = {selectedCourses => handleChange({target: {name: "courses", value : selectedCourses}})}
+value = {courseOptions.filter(course => formData.courses.includes(course.value))}
+isMulti/>
 
         </label>
 
+
+ 
         <br />
 
         <label className="block text-sm font-medium leading-6 text-gray-900">

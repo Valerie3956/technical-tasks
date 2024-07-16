@@ -22,6 +22,7 @@ const connectToDb = async () => {
 connectToDb()
 
 app.use("/students", require("./routes/studentRouter.js"))
+app.use("/courses", require("./routes/courseRouter.js"))
 
 app.use((err, req, res, next) => {
     console.log(err)
