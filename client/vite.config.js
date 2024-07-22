@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 
+const isDevEnv = false
+
 export default defineConfig({
   plugins: [react()],
   test: {
@@ -12,12 +14,12 @@ export default defineConfig({
   server: {
     proxy: {
       '/students': {
-        target: 'http://localhost:9000',
+        target: !isDevEnv? "https://technical-tasks.onrender.com/" : 'http://127.0.0.1:9000',
         changeOrigin: true,
         secure: false,
       },
       '/courses': {
-        target: 'http://localhost:9000',
+        target: !isDevEnv? "https://technical-tasks.onrender.com/" : 'http://127.0.0.1:9000',
         changeOrigin: true,
         secure: false,
       },
