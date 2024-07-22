@@ -8,7 +8,7 @@ export default function CoursesInput(){
 
     const {coursesList, createCourse} = useContext(CoursesContext)
     
-    console.log(coursesList)
+    // console.log(coursesList)
 
     const list = coursesList.map(course => {
         return(

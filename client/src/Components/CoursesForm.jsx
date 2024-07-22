@@ -39,9 +39,9 @@ const {name, credits, availability, syllabus, btnText, submit, _id} = props
       function handleSubmit(event) {
         event.preventDefault()
         submit(formData, _id)
-        console.log(formData)
+        // console.log(formData)
         setFormData(initData)
-        _id? toggle() : console.log("no toggle func")
+        // _id? toggle() : console.log("no toggle func")
       }
 
       return(

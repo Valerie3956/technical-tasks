@@ -70,7 +70,7 @@ describe("Courses Form", () => {
         );
         
     })
-    
+
   it("simulates a new course entry", async () => {
     render(
       <CoursesContextProvider>
@@ -122,6 +122,6 @@ describe("Courses Form", () => {
         // screen.debug()
       }, 500);
     });
-    screen.debug();
+    // screen.debug();
   });
 });

@@ -14,7 +14,7 @@ const [coursesList, setCoursesList] = useState([])
 useEffect(() => {
     axios.get("/courses")
     .then(res => {setCoursesList(res.data)
-        console.log(res.data)
+        // console.log(res.data)
     })
     .catch(err => console.log(err))
 }, [])

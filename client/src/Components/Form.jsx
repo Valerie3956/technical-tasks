@@ -8,7 +8,7 @@ export default function Form(props) {
 
   const { btnText, toggle, submit, _id, name, DOB, enrollementDate, year, major, courses, isGraduated } = props
 
-  const { } = useContext(StudentContext)
+  // const { } = useContext(StudentContext)
 
   useEffect(() => {
     setFormData({

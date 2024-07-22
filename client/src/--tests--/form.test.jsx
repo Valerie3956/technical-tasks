@@ -3,6 +3,7 @@ import React from 'react'
 import { describe, it, expect} from 'vitest';
 import { render, screen, fireEvent, waitFor} from '@testing-library/react';
 import App from "../App"
+
 import Form from '../Components/Form';
 import {StudentContextProvider} from '../context/studentContext';
 import nock from "nock"
@@ -35,10 +36,44 @@ let testGraduated = "false"
 
 
     beforeEach(() => {
-        nock('http://localhost:9000')
-          .post('/students')
+
+        nock("http://localhost:8000")
+        .get("/students")
+        .reply(
+            200,
+            [ ],
+            { "Access-Control-Allow-Origin": "*" }
+        );
+
+        nock("http://localhost:8000")
+        .get("/courses")
+        .reply(
+            200,
+            [
+                    {
+                        _id: "123",
+                        name: "JavaScript for super busy moms",
+                        credits: 3,
+                        availability: 15,
+                        syllabus: "a really large block of text",
+                    },
+                    {
+                        _id: "124",
+                        name: "CSS for beginners",
+                        credits: 2,
+                        availability: 10,
+                        syllabus: "CSS basics, styling, layout techniques",
+                    },
+                ],
+            { "Access-Control-Allow-Origin": "*" }
+        );
+
+        nock('http://localhost:8000')
+          .post('/students', {
+            name: testName, dateOfBirth: testDOB, major: testMajor, graduated: testGraduated, courses: [] 
+          })
           .reply(
-                201, { id: testID, name: testName, dateOfBirth: testDOB, major: testMajor, graduated: testGraduated });
+                201, { _id: testID, name: testName, dateOfBirth: testDOB, major: testMajor, graduated: testGraduated, courses : [], __v : 0 });
       });
     
       afterEach(() => {
