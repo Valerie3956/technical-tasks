@@ -11,4 +11,4 @@ afterEach(() => {
 
 //setup different localhost for testing purposes
 
-axios.defaults.baseURL = 'http//localhost:8000'
+axios.defaults.baseURL = 'http://localhost:8000'

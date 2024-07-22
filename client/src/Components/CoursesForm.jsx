@@ -31,7 +31,8 @@ const {name, credits, availability, syllabus, btnText, submit, _id} = props
         const { name, value, type, checked } = event.target
           setFormData(prevData => ({
             ...prevData,
-            [name]: type === "checkbox" ? checked : value
+            [name]: type === "checkbox" ? checked : value,
+            [name]: name === 'credits' || name === 'availability' ? Number(value) : value
           }))
       }
     
