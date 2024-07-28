@@ -22,7 +22,7 @@ useEffect(() => {
 //add course
 
 function createCourse(data){
-axios.post("/courses", data)
+axios.post("https://globalbackend-zued.onrender.com/courses", data)
 .then(res => setCoursesList(prevList => [...prevList, res.data]))
 .catch(err => console.log(err))
 }
