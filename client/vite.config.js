@@ -14,12 +14,12 @@ export default defineConfig({
   server: {
     proxy: {
       '/students': {
-        target: !isDevEnv? "https://globalbackend-zued.onrender.com/" : 'http://127.0.0.1:9000',
+        target: !isDevEnv? "https://globalbackend-zued.onrender.com/students" : 'http://127.0.0.1:9000',
         changeOrigin: true,
         secure: false,
       },
       '/courses': {
-        target: !isDevEnv? "https://globalbackend-zued.onrender.com/" : 'http://127.0.0.1:9000',
+        target: !isDevEnv? "https://globalbackend-zued.onrender.com/courses" : 'http://127.0.0.1:9000',
         changeOrigin: true,
         secure: false,
       },
