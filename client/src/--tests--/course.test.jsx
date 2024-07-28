@@ -14,11 +14,11 @@ import CoursesInput from "../Components/CoursesInput";
 import { CoursesContextProvider } from "../context/coursesContext";
 import nock from "nock";
 
-
+// when setting up variables for Nock imagine it's JSON
 let testID = "123";
 let testName = "CSS for busy moms";
-let testCredits = 3;
-let testAvailability = 15;
+let testCredits = "3";
+let testAvailability = "15";
 let testSyllabus =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint";
 

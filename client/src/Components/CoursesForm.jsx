@@ -32,7 +32,7 @@ const {name, credits, availability, syllabus, btnText, submit, _id} = props
           setFormData(prevData => ({
             ...prevData,
             [name]: type === "checkbox" ? checked : value,
-            [name]: name === 'credits' || name === 'availability' ? Number(value) : value
+            // [name]: name === 'credits' || name === 'availability' ? Number(value) : value
           }))
       }
     
