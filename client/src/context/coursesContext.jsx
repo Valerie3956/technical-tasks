@@ -12,7 +12,7 @@ const [coursesList, setCoursesList] = useState([])
 //get all courses
 
 useEffect(() => {
-    axios.get("https://globalbackend-zued.onrender.com/courses")
+    axios.get("/courses")
     .then(res => {setCoursesList(res.data)
         // console.log(res.data)
     })
