@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-
-
+import dotenv from 'dotenv'
+const URL = import.meta.env.VITE_API_URL
+// export VITE_API_URL= "https://globalbackend-zued.onrender.com"
+console.log(URL)
 const CoursesContext = React.createContext()
 
 
@@ -12,7 +14,7 @@ const [coursesList, setCoursesList] = useState([])
 //get all courses
 
 useEffect(() => {
-    axios.get("/courses")
+    axios.get(`${URL}/courses`)
     .then(res => {setCoursesList(res.data)
         // console.log(res.data)
     })
@@ -22,7 +24,7 @@ useEffect(() => {
 //add course
 
 function createCourse(data){
-axios.post("https://globalbackend-zued.onrender.com/courses", data)
+axios.post(`${URL}/courses`, data)
 .then(res => setCoursesList(prevList => [...prevList, res.data]))
 .catch(err => console.log(err))
 }
