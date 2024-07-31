@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import dotenv from 'dotenv'
 const URL = import.meta.env.VITE_API_URL
-// export VITE_API_URL= "https://globalbackend-zued.onrender.com"
+
+// how to set up env variable I need to run this every time before I go in dev mode
+// VITE_API_URL="https://globalbackend-zued.onrender.com" export VITE_API_URL
+
 console.log(URL)
 const CoursesContext = React.createContext()
 

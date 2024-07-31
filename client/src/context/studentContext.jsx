@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-
+const URL = import.meta.env.VITE_API_URL
 
 const StudentContext = React.createContext()
 
@@ -21,7 +21,7 @@ const [studentsList, setStudentsList] = useState([])
 // const [student, setStudent] = useState(initState)
 
 useEffect(() => {
-    axios.get('https://globalbackend-zued.onrender.com/students')
+    axios.get(`${URL}/students`)
     .then(res => {setStudentsList(res.data)
       console.log(res.data)
     })
@@ -31,7 +31,7 @@ useEffect(() => {
   //delete student
 
   function deleteStudent(studentId){
-    return axios.delete(`https://globalbackend-zued.onrender.com/students/${studentId}`)
+    return axios.delete(`${URL}/students/${studentId}`)
     .then(res => {
       setStudentsList(prevList => prevList.filter(person => person._id !== studentId))
       console.log(res.data)
@@ -42,7 +42,7 @@ useEffect(() => {
   //add student
 
   function createStudent(data){
-axios.post('https://globalbackend-zued.onrender.com/students', data)
+axios.post(`${URL}/students`, data)
 .then(res => {setStudentsList(prevData => [...prevData, res.data])
   console.log(res.data)
 })
@@ -53,7 +53,7 @@ axios.post('https://globalbackend-zued.onrender.com/students', data)
   //edit student
 
   function editStudent(data, _id){
-axios.put(`https://globalbackend-zued.onrender.com/students/${_id}`, data)
+axios.put(`${URL}/students/${_id}`, data)
 .then(res => {setStudentsList(prevList => prevList.map(person => person._id !== _id? person : res.data))})
 .catch(err => console.log(err.response.data.errMsg))
   }
